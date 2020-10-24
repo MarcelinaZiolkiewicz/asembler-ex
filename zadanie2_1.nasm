@@ -12,14 +12,21 @@ section .text
 
 _start: 
 	
-	
-	cmp qNum1, qNum2
-	jae
+	mov rax, qword[qNum1]
+	mov rdx, qword[qNum3]
 
+	checkOne:	
+		cmp rax, rdx
+		jge ifFir
+		jle ifSec
+		ret
+	ifFir:
+		mov qword[qAns1], rax
+		call _end
 
-
-
-
+	ifSec:
+		mov qword[qAns1], rdx
+		call _end
 _end: 
 	mov rax, 60
 	mov rdi, 0
