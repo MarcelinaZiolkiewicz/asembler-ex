@@ -11,7 +11,7 @@ section .text
 	global _start
 
 _start:
-;12
+
 	mov rcx, 10
 	mov rsi, 9
 
@@ -22,7 +22,7 @@ _start:
 		push rax
 		dec rsi	
 		loop subEach
-;23	
+	
 		mov rsi, 0
 		mov rcx, 10
 	divEach:
@@ -32,7 +32,7 @@ _start:
 		mov qword [tabr + rsi * 8], rax 
 		inc rsi
 		loop divEach
-;33		
+		
 		mov rsi, 0
 		mov rcx, 10
 		mov rbx, 0
@@ -41,15 +41,14 @@ _start:
 		mov rax, qword [tabr + rsi * 8] 
 		cmp rax, 256
 		jae skipItem
-;42
-		;mov al, rax
+
 		push rax
 		inc rbx 
 
 	skipItem:
 		inc rsi	
 		loop lowerThan	
-;50		
+		
 		mov rcx, rbx
 		mov rsi,0
 
