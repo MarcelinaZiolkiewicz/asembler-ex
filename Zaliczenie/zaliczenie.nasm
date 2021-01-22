@@ -1,9 +1,11 @@
 section .data
-	array dq 40, 166, 163, 1168, 1036, 1411, 364, 913, 310, 307
+	tab1 dq 40, 166, 163, 1168, 1036, 1411, 364, 913, 310, 307
+	fileName db "zaliczenie.txt"
 	
 section .bss
 	tabw resb 6
 	tabr resq 8
+	fdOut resb 1
 
 section .text
 	global _start
@@ -14,9 +16,9 @@ _start:
 	mov rsi, 9
 
 	subEach:
-		mov rax, qword [array + rsi * 8]
+		mov rax, qword [tab1 + rsi * 8]
 		sub rax, 10
-		mov qword [array + rsi * 8], rax
+		mov qword [tab1 + rsi * 8], rax
 		push rax
 		dec rsi	
 		loop subEach
@@ -56,6 +58,21 @@ _start:
 		mov byte[tabw + rsi], al
 		inc rsi
 		loop addItem
+
+	saveToFile:
+		mov rax, 2
+		mov rdi, fileName
+		mov rsi, 577
+		mov rdx, 0644o
+		syscall
+
+		mov [fdOut], rax
+
+		mov rax, 1
+		mov rdi, [fdOut]
+		mov rsi, tabw
+		mov rdx, 6
+		syscall
 
 
 _end:
